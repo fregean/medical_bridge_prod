@@ -50,6 +50,32 @@ HF_TOKEN=your_huggingface_token_here  # vLLM使用時のみ
 | `max_samples` | int | 処理する問題数 (先頭からN問) |
 | `question_range` | list | 処理する問題の範囲 `[start, end]` |
 | `judge` | string | 評価用モデル (`o3-mini-2025-01-31`推奨) |
+| `prompt_profile` | string | 使用するプロンプトプロファイル名 |
+| `prompts` | dict | プロンプトプロファイル定義 (キー: プロファイル名, 値: プロンプト文) |
+
+### プロンプトカスタマイズ
+
+config.yamlで独自のプロンプトを定義できます：
+
+```yaml
+prompt_profile: zero_shot_cot_mc  # 使用するプロンプトプロファイル
+prompts:
+  zero_shot_cot_mc: |
+    You are an experienced medical doctor. Think step by step before deciding the single best answer.
+    After reasoning, output exactly the following three lines:
+    Explanation: <concise medical reasoning>
+    Answer: <one of A, B, C, D, E, F, G, H, I, J>
+    Confidence: <0-100%>
+
+  # 複数のプロンプトプロファイルを定義可能
+  few_shot_mc: |
+    Here are some examples of medical questions...
+    [your few-shot prompt]
+```
+
+**注意**:
+- `prompt_profile`と`prompts`を設定しない場合、デフォルトのプロンプトが使用されます
+- プロンプト形式は出力パーサーに合わせて`Explanation:`, `Answer:`, `Confidence:`の形式を維持してください
 
 ### 設定例
 
@@ -70,7 +96,7 @@ judge: o3-mini-2025-01-31
 ```yaml
 dataset: TsinghuaC3I/MedXpertQA
 provider: vllm
-base_url: http://localhost:8000/v1
+base_url: http://192.168.11.80:8000/v1  # vLLMエンドポイント (ローカル: http://localhost:8000/v1)
 model: Qwen/Qwen3-32B
 max_completion_tokens: 128000
 reasoning: true
