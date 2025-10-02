@@ -1,0 +1,19 @@
+dataset: TsinghuaC3I/MedXpertQA
+
+provider: openai # [vllm, openai, ollama]
+
+# base_url: http://localhost:8000/v1  # Uncomment for vLLM/local endpoints
+base_url: null  # null for official OpenAI API
+
+model: o3-mini  # OpenAI model (o3-mini supports up to 100K tokens)
+max_completion_tokens: 38000
+reasoning: true
+
+# sample with multimodal is 2500, so text-only sample is about 2400
+num_workers: 2500
+
+# Use either max_samples OR question_range (not both)
+#max_samples: 2500          # Process first N questions
+question_range: [0, 10]  # Process questions from index 0 to 10 (uncomment to use)
+
+judge: o3-mini-2025-01-31
