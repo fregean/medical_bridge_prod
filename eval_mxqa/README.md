@@ -101,7 +101,7 @@ model: Qwen/Qwen3-32B
 max_completion_tokens: 128000
 reasoning: true
 num_workers: 2500
-max_samples: 2500
+max_samples: 2500  # または question_range: [0, 100] で範囲指定
 judge: o3-mini-2025-01-31
 ```
 
