@@ -1,18 +1,18 @@
 dataset: TsinghuaC3I/MedXpertQA
 
-provider: openai # [vllm, openai, ollama]
+provider: vllm # [vllm, openai, ollama]
 
-# base_url: http://192.168.11.80:8000/v1  # vLLM endpoints
-base_url: null  # null for official OpenAI API
+base_url: http://192.168.11.80:8000/v1  # vLLM endpoints
+# base_url: null  # null for official OpenAI API
 
-model: o3-mini  # OpenAI model (o3-mini supports up to 100K tokens)
+model: Qwen/Qwen3-32B  # vLLM model
 max_completion_tokens: 38000
 reasoning: true
 
 num_workers: 2500
 
-#max_samples: 2500       # Process first N questions
-question_range: [0, 10]  # Process questions from index 0 to 10 (uncomment to use)
+max_samples: 2500       # Process first N questions
+#question_range: [0, 10]  # Process questions from index 0 to 10 (uncomment to use)
 
 judge: o3-mini-2025-01-31
 
