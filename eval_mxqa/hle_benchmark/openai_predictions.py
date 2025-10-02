@@ -38,8 +38,13 @@ SYSTEM_MC = "Your response should be in the following format:\nExplanation: {you
 
 def format_message(args, question):
     # Handle both HLE and MedXpertQA schemas
-    answer_type = question.get('answer_type', 'multiple_choice')  # MedXpertQA has no answer_type, default to MC
-    system_prompt = SYSTEM_EXACT_ANSWER if answer_type == 'exact_match' else SYSTEM_MC
+    # Get prompt from config if available, otherwise use default logic
+    if hasattr(args, 'prompts') and hasattr(args, 'prompt_profile') and args.prompt_profile in args.prompts:
+        system_prompt = args.prompts[args.prompt_profile]
+    else:
+        # Fallback to original logic
+        answer_type = question.get('answer_type', 'multiple_choice')  # MedXpertQA has no answer_type, default to MC
+        system_prompt = SYSTEM_EXACT_ANSWER if answer_type == 'exact_match' else SYSTEM_MC
     question_text = question['question']
 
     # For MedXpertQA, append options to the question text
