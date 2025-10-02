@@ -72,7 +72,7 @@ async def attempt_question(args, question):
     try:
         response = await client.chat.completions.create(
             model=args.model,
-            # temperature=args.temperature if "o1" not in args.model else None,
+            temperature=args.temperature,
             max_completion_tokens=args.max_completion_tokens,
             messages=messages,
             stream=False,
@@ -111,7 +111,7 @@ def main(args: Config):
         base_url=args.base_url,
         timeout=86400,
         max_retries=3,
-        api_key="fakeapikey",
+        api_key="p10-deepseek-key",
     )
 
     assert args.num_workers > 1, "num_workers must be 2 or greater"
