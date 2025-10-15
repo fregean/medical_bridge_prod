@@ -5,10 +5,10 @@ provider: vllm # [vllm, openai, ollama]
 base_url: http://192.168.11.80:8000/v1  # vLLM endpoints
 # base_url: null  # null for official OpenAI API
 
-model: Qwen3-235B-A22B-Thinking-2507  # vLLM model
+model: qwen3-235b-a22b-thinking  # vLLM model
 max_completion_tokens: 38000
 reasoning: true
-
+temperature: 0.0
 num_workers: 48
 
 max_samples: 2500       # Process first N questions
